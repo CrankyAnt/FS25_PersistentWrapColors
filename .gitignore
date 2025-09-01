@@ -1,0 +1,11 @@
+.DS_Store
+Thumbs.db
+*.tmp
+*.bak
+~$*
+.vscode/
+.idea/
+*.log
+log.txt
+shader_cache/
+*.zip

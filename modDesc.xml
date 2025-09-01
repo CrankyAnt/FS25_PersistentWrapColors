@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<modDesc descVersion="100">
+  <author>CrankyAnt</author>	
+  <version>1.0.0.0</version>    
+  <title>
+      <en>Persistent Wrap Colors</en>
+      <de>Dauerhafte Wickelfarben</de>
+      <fr>Couleurs D'Enrubannage Persistantes</fr>
+      <nl>Blijvende Wikkelkleuren</nl>
+  </title>
+
+  <description>
+        <en><![CDATA[Persistent Wrap Colors
+
+Ever wondered why all your wrapped bales in Object Storage turn into the same plain white stack? 
+This mod makes sure every bale keeps its original wrap color - exactly as you made it.
+
+Just like in the field:
+- black bales stay black
+- pink bales stay pink
+- yellow, blue, red, green… all remain visible
+
+No more confusion about which silage is which. Each bale retains its unique wrap color while stored, and shows correctly when taken back out again.
+
+Works globally with all basegame Object Storages.  
+Also supports modded storages that use the same specialization.  
+Pure script implementation - lightweight, plug & play, no extra models required.  
+PC only, because it is a script mod.
+]]></en>		
+
+        <de><![CDATA[Dauerhafte Wickelfarben
+
+Haben Sie sich schon gefragt, warum alle Ihre Wickelballen im Objektspeicher plötzlich als einfarbig weiße Stapel erscheinen? 
+Mit diesem Mod behält jeder Ballen seine ursprüngliche Wickelfarbe - genau so, wie Sie ihn erstellt haben.
+
+Genau wie auf dem Feld:
+- schwarze Ballen bleiben schwarz
+- pinke Ballen bleiben pink
+- gelb, blau, rot, grün … alles bleibt sichtbar
+
+Keine Verwirrung mehr, welche Silage welche ist. Jeder Ballen behält seine einzigartige Wickelfarbe im Speicher und zeigt sie auch korrekt wieder an, wenn er herausgenommen wird.
+
+Funktioniert global mit allen Basis-Objektspeichern.  
+Unterstützt auch gemoddete Speicher, die die gleiche Spezialisierung verwenden.  
+Reine Script-Implementierung - leichtgewichtig, Plug & Play, keine zusätzlichen Modelle erforderlich.  
+Nur PC, da es sich um einen Script-Mod handelt.
+]]></de>
+
+
+        <fr><![CDATA[Couleurs d'Enrubannage Persistantes
+
+Vous êtes-vous déjà demandé pourquoi toutes vos balles enrubannées stockées apparaissent soudain comme une pile blanche uniforme? 
+Ce mod garantit que chaque balle conserve sa couleur d'enrubannage d'origine - exactement comme vous l'avez produite.
+
+Comme sur le champ :
+  - les balles noires restent noires
+  - les balles roses restent roses
+  - les jaunes, bleues, rouges, vertes… restent toutes visibles
+
+Fini la confusion entre les différents ensilages. Chaque balle conserve sa couleur d'enrubannage unique dans le stockage et l'affiche correctement lorsqu'elle est reprise.
+
+Fonctionne globalement avec tous les stockages d'objets de base.  
+Prend aussi en charge les stockages moddés utilisant la même spécialisation.  
+Implémentation purement script - léger, plug & play, aucun modèle supplémentaire requis.  
+PC uniquement, car il s'agit d'un mod script.
+]]></fr>
+
+        <nl><![CDATA[Blijvende Wikkelkleuren
+
+Heb je je ooit afgevraagd waarom al je gewikkelde balen in Object Storage ineens veranderen in één saaie witte stapel? 
+Met deze mod behoudt elke baal zijn eigen oorspronkelijke wikkelkleur - precies zoals je hem hebt gemaakt.
+
+Net als op het veld:
+- zwarte balen blijven zwart
+- roze balen blijven roze
+- geel, blauw, rood, groen… alles blijft zichtbaar
+
+Geen verwarring meer over welke silage welke is. Elke baal behoudt zijn unieke wikkelkleur in de opslag en wordt ook correct weergegeven wanneer je hem er weer uithaalt.
+
+Werkt wereldwijd met alle basismodellen van Object Storage.  
+Ondersteunt ook gemodde opslagplaatsen die dezelfde specialisatie gebruiken.  
+Pure script-implementatie - lichtgewicht, plug & play, geen extra modellen nodig.  
+Alleen voor PC, omdat het een scriptmod is.
+]]></nl>
+  </description>
+
+	<iconFilename>icon_PersistentWrapColors.dds</iconFilename>	
+  <multiplayer supported="true"/>	
+	
+  <extraSourceFiles>	
+    <sourceFile filename="PersistentWrapColors.lua" /> 
+	</extraSourceFiles>
+  
+</modDesc>
