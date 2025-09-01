@@ -15,6 +15,4 @@ Permission is granted to download and use this mod for **personal gameplay only*
 Any copies found outside these sources are unauthorized and may not be safe to use.
 
 ## Notes
-- Decompilation is not applicable: Farming Simulator uses plain-text script mods,  
-  not compiled binaries.  
 - This mod is provided *"as is"*, without warranty of any kind. Use at your own risk.
