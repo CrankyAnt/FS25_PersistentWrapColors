@@ -85,7 +85,7 @@ Alleen voor PC, omdat het een scriptmod is.
   </description>
 
 	<iconFilename>icon_PersistentWrapColors.dds</iconFilename>	
-  <multiplayer supported="true"/>	
+  <multiplayer supported="false"/>	
 	
   <extraSourceFiles>	
     <sourceFile filename="PersistentWrapColors.lua" /> 
