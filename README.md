@@ -17,3 +17,17 @@ Each bale retains its unique wrap color while stored, and shows correctly when t
 - Supports **modded storages** that use the same specialization  
 - Pure **script implementation** – lightweight, plug & play, no extra models required  
 - **PC only** (script mod)
+
+## Installation
+1. Download the mod from **ModHub** or **GitHub**
+2. Place the `.zip` file in your mods folder
+3. Activate in-game via the mod selection menu
+
+## Changelog
+### Version 1.1.0.0
+- Add multiplayer support- 
+- Conflict detection with other mods
+- Improved error handling and integrity checks
+
+### Version 1.0.0.0  
+- Initial release for singleplayer 

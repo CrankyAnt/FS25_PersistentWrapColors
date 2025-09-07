@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="no" ?>
 <modDesc descVersion="100">
   <author>CrankyAnt</author>	
-  <version>1.0.0.0</version>    
+  <version>1.1.0.0</version>    
   <title>
       <en>Persistent Wrap Colors</en>
       <de>Dauerhafte Wickelfarben</de>
@@ -12,7 +12,7 @@
   <description>
         <en><![CDATA[Persistent Wrap Colors
 
-Ever wondered why all your wrapped bales in Object Storage turn into the same plain white stack? 
+Ever wondered why all your wrapped bales in Object Storage turn into the same plain equal color? 
 This mod makes sure every bale keeps its original wrap color - exactly as you made it.
 
 Just like in the field:
@@ -22,15 +22,15 @@ Just like in the field:
 
 No more confusion about which silage is which. Each bale retains its unique wrap color while stored, and shows correctly when taken back out again.
 
-Works globally with all basegame Object Storages.  
+Works globally with all Object Storages using GIANTS Object Storage.  
 Also supports modded storages that use the same specialization.  
-Pure script implementation - lightweight, plug & play, no extra models required.  
+Pure script implementation - lightweight, hardly any performance impact (even with very large numbers of bales)  
 PC only, because it is a script mod.
 ]]></en>		
 
         <de><![CDATA[Dauerhafte Wickelfarben
 
-Haben Sie sich schon gefragt, warum alle Ihre Wickelballen im Objektspeicher plötzlich als einfarbig weiße Stapel erscheinen? 
+Haben Sie sich schon gefragt, warum alle Ihre Wickelballen im Objektspeicher plötzlich als einfarbig gleichfarbige Stapel erscheinen? 
 Mit diesem Mod behält jeder Ballen seine ursprüngliche Wickelfarbe - genau so, wie Sie ihn erstellt haben.
 
 Genau wie auf dem Feld:
@@ -40,16 +40,16 @@ Genau wie auf dem Feld:
 
 Keine Verwirrung mehr, welche Silage welche ist. Jeder Ballen behält seine einzigartige Wickelfarbe im Speicher und zeigt sie auch korrekt wieder an, wenn er herausgenommen wird.
 
-Funktioniert global mit allen Basis-Objektspeichern.  
+Funktioniert global mit allen Objektspeichern, die GIANTS Object Storage verwenden.  
 Unterstützt auch gemoddete Speicher, die die gleiche Spezialisierung verwenden.  
-Reine Script-Implementierung - leichtgewichtig, Plug & Play, keine zusätzlichen Modelle erforderlich.  
+Reine Script-Implementierung - leichtgewichtig, kaum Leistungseinbußen (auch bei sehr großen Ballenzahlen)
 Nur PC, da es sich um einen Script-Mod handelt.
 ]]></de>
 
 
         <fr><![CDATA[Couleurs d'Enrubannage Persistantes
 
-Vous êtes-vous déjà demandé pourquoi toutes vos balles enrubannées stockées apparaissent soudain comme une pile blanche uniforme? 
+Vous êtes-vous déjà demandé pourquoi toutes vos balles enrubannées stockées apparaissent soudain comme une pile de couleur uniforme? 
 Ce mod garantit que chaque balle conserve sa couleur d'enrubannage d'origine - exactement comme vous l'avez produite.
 
 Comme sur le champ :
@@ -59,15 +59,15 @@ Comme sur le champ :
 
 Fini la confusion entre les différents ensilages. Chaque balle conserve sa couleur d'enrubannage unique dans le stockage et l'affiche correctement lorsqu'elle est reprise.
 
-Fonctionne globalement avec tous les stockages d'objets de base.  
+Fonctionne globalement avec tous les stockages d'objets utilisant GIANTS Object Storage.  
 Prend aussi en charge les stockages moddés utilisant la même spécialisation.  
-Implémentation purement script - léger, plug & play, aucun modèle supplémentaire requis.  
+Implémentation purement script - léger, à peine d'impact sur la performance (même avec un très grand nombre de balles).  
 PC uniquement, car il s'agit d'un mod script.
 ]]></fr>
 
         <nl><![CDATA[Blijvende Wikkelkleuren
 
-Heb je je ooit afgevraagd waarom al je gewikkelde balen in Object Storage ineens veranderen in één saaie witte stapel? 
+Heb je je ooit afgevraagd waarom al je gewikkelde balen in Object Storage ineens veranderen in één saaie gelijk gekleurde stapel? 
 Met deze mod behoudt elke baal zijn eigen oorspronkelijke wikkelkleur - precies zoals je hem hebt gemaakt.
 
 Net als op het veld:
@@ -77,15 +77,15 @@ Net als op het veld:
 
 Geen verwarring meer over welke silage welke is. Elke baal behoudt zijn unieke wikkelkleur in de opslag en wordt ook correct weergegeven wanneer je hem er weer uithaalt.
 
-Werkt wereldwijd met alle basismodellen van Object Storage.  
+Werkt globaal met alle modellen die gebruik maken van GIANTS Object Storage.  
 Ondersteunt ook gemodde opslagplaatsen die dezelfde specialisatie gebruiken.  
-Pure script-implementatie - lichtgewicht, plug & play, geen extra modellen nodig.  
+Pure script-implementatie - lichtgewicht, nauwelijks impact op performance (ook met zeer grote aantallen balen)
 Alleen voor PC, omdat het een scriptmod is.
 ]]></nl>
   </description>
 
 	<iconFilename>icon_PersistentWrapColors.dds</iconFilename>	
-  <multiplayer supported="false"/>	
+  <multiplayer supported="true"/>	
 	
   <extraSourceFiles>	
     <sourceFile filename="PersistentWrapColors.lua" /> 
