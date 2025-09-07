@@ -25,7 +25,7 @@ Each bale retains its unique wrap color while stored, and shows correctly when t
 
 ## Changelog
 ### Version 1.1.0.0
-- Add multiplayer support- 
+- Add multiplayer support
 - Conflict detection with other mods
 - Improved error handling and integrity checks
 
