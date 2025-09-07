@@ -1,0 +1,4 @@
+[submodule "devdocs"]
+	path = docs
+	url = git@github.com:CrankyAnt/DevDoc.git
+	branch = main
