@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="no" ?>
 <modDesc descVersion="100">
   <author>CrankyAnt</author>	
-  <version>1.1.0.0</version>    
+  <version>1.1.1.0</version>    
   <title>
       <en>Persistent Wrap Colors</en>
       <de>Dauerhafte Wickelfarben</de>
@@ -26,6 +26,18 @@ Works globally with all Object Storages using GIANTS Object Storage.
 Also supports modded storages that use the same specialization.  
 Pure script implementation - lightweight, hardly any performance impact (even with very large numbers of bales)  
 PC only, because it is a script mod.
+
+Changelog
+Version 1.1.1.0
+- Changed loading logs and integritycheck
+
+Version 1.1.0.0
+- Add multiplayer support
+- Conflict detection with other mods
+- Improved error handling and integrity checks
+
+Version 1.0.0.0  
+- Initial release for singleplayer 
 ]]></en>		
 
         <de><![CDATA[Dauerhafte Wickelfarben
@@ -44,6 +56,18 @@ Funktioniert global mit allen Objektspeichern, die GIANTS Object Storage verwend
 Unterstützt auch gemoddete Speicher, die die gleiche Spezialisierung verwenden.  
 Reine Script-Implementierung - leichtgewichtig, kaum Leistungseinbußen (auch bei sehr großen Ballenzahlen)
 Nur PC, da es sich um einen Script-Mod handelt.
+
+Changelog
+Version 1.1.1.0
+- Änderung beim Laden der Logdateien und bei der Integritätsprüfung
+
+Version 1.1.0.0
+- Multiplayer-Unterstützung hinzugefügt
+- Konflikterkennung mit anderen Mods
+- Verbesserte Fehlerbehandlung und Integritätsprüfungen
+
+Version 1.0.0.0
+- Erstrelease für Einzelspieler
 ]]></de>
 
 
@@ -63,6 +87,18 @@ Fonctionne globalement avec tous les stockages d'objets utilisant GIANTS Object 
 Prend aussi en charge les stockages moddés utilisant la même spécialisation.  
 Implémentation purement script - léger, à peine d'impact sur la performance (même avec un très grand nombre de balles).  
 PC uniquement, car il s'agit d'un mod script.
+
+Changelog
+Version 1.1.1.0
+- Modification du processus de chargement des journaux et de la vérification d’intégrité
+
+Version 1.1.0.0
+- Ajout du support multijoueur
+- Détection des conflits avec d’autres mods
+- Amélioration de la gestion des erreurs et des vérifications d’intégrité
+
+Version 1.0.0.0
+- Première version pour le mode solo
 ]]></fr>
 
         <nl><![CDATA[Blijvende Wikkelkleuren
@@ -81,6 +117,18 @@ Werkt globaal met alle modellen die gebruik maken van GIANTS Object Storage.
 Ondersteunt ook gemodde opslagplaatsen die dezelfde specialisatie gebruiken.  
 Pure script-implementatie - lichtgewicht, nauwelijks impact op performance (ook met zeer grote aantallen balen)
 Alleen voor PC, omdat het een scriptmod is.
+
+Changelog
+Version 1.1.1.0
+- Wijziging in het laden van logbestanden en integriteitscontrole
+
+Version 1.1.0.0
+- Multiplayer-ondersteuning toegevoegd
+- Conflictdetectie met andere mods
+- Verbeterde foutafhandeling en integriteitscontroles
+
+Version 1.0.0.0
+- Eerste release voor singleplayer
 ]]></nl>
   </description>
 
