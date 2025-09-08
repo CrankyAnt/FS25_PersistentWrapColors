@@ -37,6 +37,20 @@ PersistentWrapColors._patchedRefs = {}  -- Store our patched function references
 -- Forward declaration
 local pwc_PlaceableObjectStorage_updateObjectStorageVisualAreas
 
+-- Store original basegame references for later comparison
+PersistentWrapColors._basegameRefs = {
+    loadFromXMLFile = PlaceableObjectStorage and PlaceableObjectStorage.loadFromXMLFile,
+    addObjectToObjectStorage = PlaceableObjectStorage and PlaceableObjectStorage.addObjectToObjectStorage,
+    addAbstactObjectToObjectStorage = PlaceableObjectStorage and
+        PlaceableObjectStorage.addAbstactObjectToObjectStorage,
+    removeAbstractObjectsFromStorage = PlaceableObjectStorage and
+        PlaceableObjectStorage.removeAbstractObjectsFromStorage,
+    onWriteStream = PlaceableObjectStorage and PlaceableObjectStorage.onWriteStream,
+    onReadStream = PlaceableObjectStorage and PlaceableObjectStorage.onReadStream,
+    updateObjectStorageVisualAreas = PlaceableObjectStorage and PlaceableObjectStorage
+        .updateObjectStorageVisualAreas
+}
+
 -- =============================================================================
 -- :: 2. HELPER FUNCTIONS ::
 -- =============================================================================
@@ -571,7 +585,7 @@ pwc_PlaceableObjectStorage_updateObjectStorageVisualAreas = function(self, super
             else
                 -- MP: Use original batch spawn then colorize
                 local parentNode = (objectInfo.visualSpawnInfos[1] and objectInfo.visualSpawnInfos[1][1]) or
-                area.spawnNode
+                    area.spawnNode
                 pwc_logf("VISUALS BATCH MP storage=%s vis=%d objs=%d", tostring(self.owningPlaceable or self),
                     #objectInfo.visualSpawnInfos, objectInfo.numObjects)
                 local before = getNumOfChildren(parentNode)
@@ -634,41 +648,7 @@ pwc_PlaceableObjectStorage_updateObjectStorageVisualAreas = function(self, super
 end
 
 -- =============================================================================
--- :: 7. EARLY INTEGRITY CHECK ::
--- =============================================================================
--- Check if functions are still basegame before we patch them
-local function prePatchIntegrityCheck()
-    local conflicts = {}
-
-    -- Store original basegame references for later comparison
-    PersistentWrapColors._basegameRefs = {
-        loadFromXMLFile = PlaceableObjectStorage and PlaceableObjectStorage.loadFromXMLFile,
-        addObjectToObjectStorage = PlaceableObjectStorage and PlaceableObjectStorage.addObjectToObjectStorage,
-        addAbstactObjectToObjectStorage = PlaceableObjectStorage and
-        PlaceableObjectStorage.addAbstactObjectToObjectStorage,
-        removeAbstractObjectsFromStorage = PlaceableObjectStorage and
-        PlaceableObjectStorage.removeAbstractObjectsFromStorage,
-        onWriteStream = PlaceableObjectStorage and PlaceableObjectStorage.onWriteStream,
-        onReadStream = PlaceableObjectStorage and PlaceableObjectStorage.onReadStream,
-        updateObjectStorageVisualAreas = PlaceableObjectStorage and PlaceableObjectStorage
-        .updateObjectStorageVisualAreas
-    }
-
-    -- TODO: Could check if functions have already been modified by comparing with known basegame signatures
-    -- For now, just assume we're first and store the references
-
-    return true -- Continue with patching
-end
-
--- Run pre-patch check
-if not prePatchIntegrityCheck() then
-    PersistentWrapColors.ENABLED = false
-    print("[PWC] PRE-PATCH CONFLICT - not patching anything")
-    return
-end
-
--- =============================================================================
--- :: 8. SINGLEPLAYER DIRECT REPLACEMENT (AT SCRIPT LOAD) ::
+-- :: 7. SINGLEPLAYER DIRECT REPLACEMENT (AT SCRIPT LOAD) ::
 -- =============================================================================
 -- In SP, replace the function IMMEDIATELY like SP final does
 if PlaceableObjectStorage ~= nil then
@@ -770,18 +750,18 @@ if PlaceableObjectStorage ~= nil then
     end
 
     PersistentWrapColors._patchedRefs.updateObjectStorageVisualAreas = PlaceableObjectStorage
-    .updateObjectStorageVisualAreas
+        .updateObjectStorageVisualAreas
     pwc_logf("PlaceableObjectStorage.updateObjectStorageVisualAreas OVERRIDDEN (will check SP/MP at runtime)")
 end
 
 -- =============================================================================
--- :: POST-PATCH INTEGRITY CHECK (IMMEDIATE) ::
+-- :: 8. INITIALIZATION & INTEGRITY CHECK ::
 -- =============================================================================
--- Check immediately after patching that our patches were applied correctly
+-- Check immediately after patching if patches were applied correctly
 local function postPatchIntegrityCheck()
     local conflicts = {}
 
-    -- Verify our patches are in place
+    -- Verify patches are in place
     for name, expectedRef in pairs(PersistentWrapColors._patchedRefs or {}) do
         local currentRef = PlaceableObjectStorage and PlaceableObjectStorage[name]
         if currentRef ~= expectedRef then
@@ -807,14 +787,11 @@ if not patchSuccess then
         table.concat(patchConflicts, "; ")))
     return
 else
-    print("[PWC] Initial patches applied successfully")
+    print("[PWC] No conflict detected — Persistent WrapColors enabled")
     -- Schedule runtime check for later
     PersistentWrapColors._integrityCheckPending = true
 end
 
--- =============================================================================
--- :: 8. INITIALIZATION & INTEGRITY CHECK ::
--- =============================================================================
 -- Install server and client hooks during map load; patch logs confirm activation.
 function PersistentWrapColors:loadMap()
     -- Server hooks
@@ -840,7 +817,7 @@ function PersistentWrapColors:loadMap()
                     pwc_PlaceableObjectStorage_addAbstactObjectToObjectStorage
                 )
             PersistentWrapColors._patchedRefs.addAbstactObjectToObjectStorage = PlaceableObjectStorage
-            .addAbstactObjectToObjectStorage
+                .addAbstactObjectToObjectStorage
             self._hooked_addAbs = true
             pwc_logf("PATCHED PlaceableObjectStorage:addAbstactObjectToObjectStorage (server-only)")
         end
@@ -849,7 +826,7 @@ function PersistentWrapColors:loadMap()
                 PlaceableObjectStorage.removeAbstractObjectsFromStorage,
                 pwc_PlaceableObjectStorage_removeAbstractObjectsFromStorage)
             PersistentWrapColors._patchedRefs.removeAbstractObjectsFromStorage = PlaceableObjectStorage
-            .removeAbstractObjectsFromStorage
+                .removeAbstractObjectsFromStorage
             self._hooked_removeAbs = true
             pwc_logf("PATCHED PlaceableObjectStorage:removeAbstractObjectsFromStorage (server-only)")
         end
@@ -874,9 +851,7 @@ function PersistentWrapColors:loadMap()
     end
 end
 
--- =============================================================================
--- :: 9. INTEGRITY CHECK ::
--- =============================================================================
+-- Run a final integrity check to catch any runtime conflicts
 function PersistentWrapColors:_runIntegrityCheck()
     self._integrityCheckPending = false
     local conflicts = {}
