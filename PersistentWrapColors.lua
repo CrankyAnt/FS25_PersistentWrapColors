@@ -783,11 +783,11 @@ end
 local patchSuccess, patchConflicts = postPatchIntegrityCheck()
 if not patchSuccess then
     PersistentWrapColors.ENABLED = false
-    print(string.format("[PWC] POST-PATCH CONFLICT DETECTED by: %s — disabling PersistentWrapColors",
+    print(string.format("[PWC] POST-PATCH CONFLICT DETECTED by: %s - disabling PersistentWrapColors",
         table.concat(patchConflicts, "; ")))
     return
 else
-    print("[PWC] No conflict detected — Persistent WrapColors enabled")
+    print("[PWC] No conflict detected - Persistent WrapColors enabled")
     -- Schedule runtime check for later
     PersistentWrapColors._integrityCheckPending = true
 end
@@ -882,7 +882,7 @@ function PersistentWrapColors:_runIntegrityCheck()
 
     if #conflicts > 0 then
         PersistentWrapColors.ENABLED = false
-        print(string.format("[PWC] RUNTIME CONFLICT DETECTED by: %s — disabling PersistentWrapColors",
+        print(string.format("[PWC] RUNTIME CONFLICT DETECTED by: %s - disabling PersistentWrapColors",
             table.concat(conflicts, "; ")))
     end
 end
