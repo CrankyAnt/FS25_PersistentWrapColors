@@ -27,6 +27,8 @@ Also supports modded storages that use the same specialization.
 Pure script implementation - lightweight, hardly any performance impact (even with very large numbers of bales)  
 PC only, because it is a script mod.
 
+Report issues on GitHub: https://github.com/CrankyAnt/FS25_PersistentWrapColors/issues
+
 Changelog
 Version 1.1.1.0
 - Changed loading logs and integritycheck
@@ -56,6 +58,8 @@ Funktioniert global mit allen Objektspeichern, die GIANTS Object Storage verwend
 Unterstützt auch gemoddete Speicher, die die gleiche Spezialisierung verwenden.  
 Reine Script-Implementierung - leichtgewichtig, kaum Leistungseinbußen (auch bei sehr großen Ballenzahlen)
 Nur PC, da es sich um einen Script-Mod handelt.
+
+Fehlerberichte auf GitHub: https://github.com/CrankyAnt/FS25_PersistentWrapColors/issues
 
 Changelog
 Version 1.1.1.0
@@ -88,6 +92,8 @@ Prend aussi en charge les stockages moddés utilisant la même spécialisation.
 Implémentation purement script - léger, à peine d'impact sur la performance (même avec un très grand nombre de balles).  
 PC uniquement, car il s'agit d'un mod script.
 
+Signalez les problèmes sur GitHub : https://github.com/CrankyAnt/FS25_PersistentWrapColors/issues
+
 Changelog
 Version 1.1.1.0
 - Modification du processus de chargement des journaux et de la vérification d’intégrité
@@ -117,6 +123,8 @@ Werkt globaal met alle modellen die gebruik maken van GIANTS Object Storage.
 Ondersteunt ook gemodde opslagplaatsen die dezelfde specialisatie gebruiken.  
 Pure script-implementatie - lichtgewicht, nauwelijks impact op performance (ook met zeer grote aantallen balen)
 Alleen voor PC, omdat het een scriptmod is.
+
+Meld problemen op GitHub: https://github.com/CrankyAnt/FS25_PersistentWrapColors/issues
 
 Changelog
 Version 1.1.1.0
