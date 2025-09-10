@@ -9,3 +9,4 @@ Thumbs.db
 log.txt
 shader_cache/
 *.zip
+.claude/settings.local.json
