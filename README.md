@@ -24,13 +24,16 @@ Each bale retains its unique wrap color while stored, and shows correctly when t
 3. Activate in-game via the mod selection menu
 
 ## Changelog
-### Version 1.1.1.0
+### Version 1.1.2
+- Fixed: Compatibility with other storage mods
+
+### Version 1.1.1
 - Changed loading logs and integritycheck
 
-### Version 1.1.0.0
+### Version 1.1.0
 - Add multiplayer support
 - Conflict detection with other mods
 - Improved error handling and integrity checks
 
-### Version 1.0.0.0  
+### Version 1.0.0  
 - Initial release for singleplayer 

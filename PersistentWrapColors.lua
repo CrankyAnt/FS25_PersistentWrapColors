@@ -13,7 +13,7 @@ Modification or redistribution of this mod, in whole or in part, is prohibited
 without prior written permission from the author.
 The only official sources for this mod are:
 GitHub: https://github.com/CrankyAnt/FS25_PersistentWrapColors
-GIANTS ModHub - submitted
+GIANTS ModHub - https://www.farming-simulator.com/mod.php?mod_id=334607&title=fs2025
 Any copies found outside these sources are unauthorized and may not be safe to use.
 
 Notes
@@ -32,7 +32,7 @@ PersistentWrapColors.DEBUG = false
 PersistentWrapColors.serverColorDB = {} -- [placeable] = { displayId:string, groups: table<string,{seq: { {r,g,b}... }, count:number}>, totals = {bales=number, wrapped=number}}
 PersistentWrapColors.clientColorDB = {} -- [placeable] = { groups: table<string,{seq: { {r,g,b}... }, pos:number}> }
 PersistentWrapColors.ENABLED = true
-PersistentWrapColors._patchedRefs = {}  -- Store our patched function references
+PersistentWrapColors._patchedRefs = {}  -- Store patched function references
 
 -- Forward declaration
 local pwc_PlaceableObjectStorage_updateObjectStorageVisualAreas
@@ -428,16 +428,7 @@ local function pwc_PlaceableObjectStorage_onReadStream(self, superFunc, streamId
         PersistentWrapColors.clientColorDB[storageKey] = { groups = newGroups }
         pwc_logf("ONREADSTREAM storage=%s groups=%d (pre-base)", tostring(storageKey), gcount)
 
-        -- Hook visuals per-instance (client MP)
-        if PlaceableObjectStorage and PlaceableObjectStorage.updateObjectStorageVisualAreas and not self._hooked_updateVisuals then
-            PlaceableObjectStorage.updateObjectStorageVisualAreas = Utils.overwrittenFunction(
-                PlaceableObjectStorage.updateObjectStorageVisualAreas,
-                pwc_PlaceableObjectStorage_updateObjectStorageVisualAreas
-            )
-            self._hooked_updateVisuals = true
-            PersistentWrapColors._classHookedUpdateVisuals = true
-            pwc_logf("PATCHED PlaceableObjectStorage:updateObjectStorageVisualAreas (client)")
-        end
+        -- Visual patching already done at script load time with Utils.overwrittenFunction
     end
 
     -- Call base
@@ -515,7 +506,7 @@ local function pwc_colorizeLastSpawnBatch(self, objectInfo, parentNode, beforeCh
     pwc_logf("COLOR group=%s used=%d pos=%d/%d", key, used, group.pos or 0, (group.seq and #group.seq) or 0)
 end
 
--- EXACT COPY from SP final - PWC_spawnMixed Spawns visuals for stored objects, each with its own wrappingColor
+-- PWC_spawnMixed Spawns visuals for stored objects, each with its own wrappingColor
 local function PWC_spawnMixed(objectInfo)
     local vis  = objectInfo and objectInfo.visualSpawnInfos
     local objs = objectInfo and objectInfo.objects
@@ -556,202 +547,146 @@ pwc_PlaceableObjectStorage_updateObjectStorageVisualAreas = function(self, super
     pwc_logf("VISUALS START storage=%s infos=%d SP=%s", tostring(self.owningPlaceable or self),
         (spec and spec.objectInfos and #spec.objectInfos) or -1, tostring(isSingleplayer))
 
-    -- In SP, we don't need the client DB at all - objects have their colors
-    if isSingleplayer then
-        pwc_logf("SP MODE - using direct object colors")
+    -- Reset group positions for MP when doing any visual update
+    if not isSingleplayer and g_currentMission and g_currentMission:getIsClient() then
+        local storageKey = self.owningPlaceable or self
+        local clientDB = PersistentWrapColors.clientColorDB[storageKey]
+        if clientDB and clientDB.groups then
+            -- Always reset group positions when visuals are being updated
+            -- This ensures correct positioning whether adding new bales or rebuilding storage (for edge cases)
+            for key, group in pairs(clientDB.groups) do
+                group.pos = 0
+                pwc_logf("MP: Reset group.pos for key=%s", key)
+            end
+        end
     end
 
-    -- Transparent spawn-node switch
-    local oldSpawnNode = area.spawnNode
-    area.spawnNode = createTransformGroup("storageAreaSpawnNode")
-    link(self.rootNode, area.spawnNode)
-    setVisibility(area.spawnNode, false)
+    if isSingleplayer then
+        -- SP: Need to handle first spawn differently
+        -- Store original objects to respawn with colors
+        local firstObjectInfo = nil
+        local firstVisualSpawnInfos = nil
 
-    local pending = {
-        oldSpawnNode = oldSpawnNode,
-        newSpawnNode = area.spawnNode,
-        objectInfosToSpawn = {}
-    }
+        -- Call superFunc to let basegame/other mods work
+        superFunc(self)
 
-    function pending.spawnNextObjectInfo()
-        if #pending.objectInfosToSpawn > 0 then
-            local objectInfo = pending.objectInfosToSpawn[1]
+        -- Hook pending updates and fix the first spawn
+        if spec and spec.pendingVisualAreaUpdates and #spec.pendingVisualAreaUpdates > 0 then
+            local pending = spec.pendingVisualAreaUpdates[#spec.pendingVisualAreaUpdates]
 
-            if isSingleplayer then
-                -- SP: Use EXACT PWC_spawnMixed from SP final
-                PWC_spawnMixed(objectInfo)
-                pwc_logf("VISUALS BATCH SP storage=%s vis=%d objs=%d", tostring(self.owningPlaceable or self),
-                    #objectInfo.visualSpawnInfos, objectInfo.numObjects)
-            else
-                -- MP: Use original batch spawn then colorize
-                local parentNode = (objectInfo.visualSpawnInfos[1] and objectInfo.visualSpawnInfos[1][1]) or
-                    area.spawnNode
-                pwc_logf("VISUALS BATCH MP storage=%s vis=%d objs=%d", tostring(self.owningPlaceable or self),
-                    #objectInfo.visualSpawnInfos, objectInfo.numObjects)
-                local before = getNumOfChildren(parentNode)
-                objectInfo.objects[1]:spawnVisualObjects(objectInfo.visualSpawnInfos)
+            -- Check if first group was already spawned (it usually is)
+            local totalObjectInfos = #spec.objectInfos
+            local remainingToSpawn = #pending.objectInfosToSpawn
 
-                if g_currentMission and g_currentMission:getIsClient() then
-                    pwc_colorizeLastSpawnBatch(self, objectInfo, parentNode, before)
+            if remainingToSpawn < totalObjectInfos then
+                -- First was already spawned, we need to fix it
+                pwc_logf("SP: First group already spawned, need to re-spawn with colors")
+
+                -- Find and remove the already-spawned visuals
+                firstObjectInfo = spec.objectInfos[1]
+                if firstObjectInfo and firstObjectInfo.visualSpawnInfos then
+                    firstVisualSpawnInfos = firstObjectInfo.visualSpawnInfos
+                    local parentNode = firstVisualSpawnInfos[1] and firstVisualSpawnInfos[1][1] or area.spawnNode
+
+                    -- Delete the non-colored visuals that were just spawned
+                    local numChildren = getNumOfChildren(parentNode)
+                    local numToDelete = math.min(#firstVisualSpawnInfos, numChildren)
+                    pwc_logf("SP: Deleting %d visuals (parentNode has %d children)", numToDelete, numChildren)
+                    for i = numToDelete - 1, 0, -1 do
+                        if i < numChildren then
+                            local child = getChildAt(parentNode, i)
+                            if child and entityExists(child) then
+                                delete(child)
+                            end
+                        end
+                    end
+
+                    -- Re-insert first objectInfo at beginning of spawn queue
+                    table.insert(pending.objectInfosToSpawn, 1, firstObjectInfo)
                 end
             end
 
-            table.remove(pending.objectInfosToSpawn, 1)
-            return true
-        else
-            delete(pending.oldSpawnNode)
-            if entityExists(pending.newSpawnNode) then setVisibility(pending.newSpawnNode, true) end
-            return false
-        end
-    end
-
-    -- Force "one huge area"
-    area.spawnAreaIndex, area.spawnAreaData[1], area.spawnAreaData[2], area.spawnAreaData[3], area.spawnAreaData[4], area.spawnAreaData[5], area.spawnAreaData[6] =
-        1, 0, 0, 0, 0, 0, math.huge
-
-    for i = 1, #spec.objectInfos do
-        local objectInfo = spec.objectInfos[i]
-        objectInfo.visualSpawnInfos = {}
-        area.spawnAreaData[6] = math.huge
-
-        local objectToSpawn = objectInfo.objects[1]
-        local ox, oy, oz, width, height, length, maxStackHeight = objectToSpawn:getSpawnInfo()
-        if maxStackHeight > 1.001 then maxStackHeight = math.huge end
-
-        for _ = 1, objectInfo.numObjects do
-            local areaIndex, spawnX, spawnY, spawnZ, offsetX, offsetY, offsetZ, nextOffsetX, nextOffsetZ, stackIndex =
-                PlaceableObjectStorage.getNextSpawnAreaAndOffset(area.area, area.spawnAreaIndex, area.spawnAreaData[1],
-                    area.spawnAreaData[2], area.spawnAreaData[3], area.spawnAreaData[4], area.spawnAreaData[5], width,
-                    height,
-                    length, maxStackHeight, area.spawnAreaData[6], true)
-            if areaIndex ~= nil then
-                area.spawnAreaIndex, area.spawnAreaData[1], area.spawnAreaData[2], area.spawnAreaData[3], area.spawnAreaData[4], area.spawnAreaData[5], area.spawnAreaData[6] =
-                    areaIndex, offsetX, offsetY, offsetZ, nextOffsetX, nextOffsetZ, stackIndex
-
-                local spawnArea = area.area[area.spawnAreaIndex]
-                local cx, cy, cz = localToLocal(spawnArea.startNode, area.spawnNode, spawnX + ox, spawnY + oy,
-                    spawnZ + oz)
-                local rx, ry, rz = localRotationToLocal(spawnArea.startNode, area.spawnNode, 0, 0, 0)
-                table.insert(objectInfo.visualSpawnInfos, { area.spawnNode, cx, cy, cz, rx, ry, rz })
+            -- Now hook the spawn function to use PWC_spawnMixed
+            local originalSpawnNext = pending.spawnNextObjectInfo
+            pending.spawnNextObjectInfo = function()
+                if #pending.objectInfosToSpawn > 0 then
+                    local objectInfo = pending.objectInfosToSpawn[1]
+                    pwc_logf("SP spawnNextObjectInfo: colored spawn for %d visuals",
+                        #(objectInfo.visualSpawnInfos or {}))
+                    PWC_spawnMixed(objectInfo)
+                    table.remove(pending.objectInfosToSpawn, 1)
+                    return true
+                else
+                    -- Let original handle cleanup
+                    return originalSpawnNext()
+                end
             end
         end
 
-        if #objectInfo.visualSpawnInfos > 0 then
-            table.insert(pending.objectInfosToSpawn, objectInfo)
-        end
-    end
+        pwc_logf("SP MODE - fixed first spawn and hooked for colored spawning")
+    else
+        -- MP: Different approach - colorize after spawn
+        superFunc(self)
 
-    if pending.spawnNextObjectInfo() then
-        table.insert(spec.pendingVisualAreaUpdates, pending)
-        self:raiseActive()
+        if spec and spec.pendingVisualAreaUpdates and #spec.pendingVisualAreaUpdates > 0 then
+            local pending = spec.pendingVisualAreaUpdates[#spec.pendingVisualAreaUpdates]
+
+            -- Check if first group was already spawned (same as SP)
+            local totalObjectInfos = #spec.objectInfos
+            local remainingToSpawn = #pending.objectInfosToSpawn
+
+            if remainingToSpawn < totalObjectInfos then
+                -- First was already spawned, apply colors retroactively
+                pwc_logf("MP: First group already spawned, applying retroactive coloring")
+
+                local firstObjectInfo = spec.objectInfos[1]
+                if firstObjectInfo and firstObjectInfo.visualSpawnInfos and #firstObjectInfo.visualSpawnInfos > 0 then
+                    local parentNode = firstObjectInfo.visualSpawnInfos[1][1] or area.spawnNode
+                    -- The visuals are already spawned as first N children
+                    pwc_colorizeLastSpawnBatch(self, firstObjectInfo, parentNode, 0)
+                end
+            end
+
+            -- Hook for remaining spawns
+            local originalSpawnNext = pending.spawnNextObjectInfo
+            pending.spawnNextObjectInfo = function()
+                local objectInfoToColor = pending.objectInfosToSpawn[1]
+                local parentNode = nil
+                local beforeCount = 0
+
+                if objectInfoToColor and objectInfoToColor.visualSpawnInfos and #objectInfoToColor.visualSpawnInfos > 0 then
+                    parentNode = objectInfoToColor.visualSpawnInfos[1][1] or area.spawnNode
+                    beforeCount = getNumOfChildren(parentNode)
+                end
+
+                local result = originalSpawnNext()
+
+                if result and objectInfoToColor and g_currentMission and g_currentMission:getIsClient() then
+                    pwc_logf("MP: Applying colors after spawn")
+                    pwc_colorizeLastSpawnBatch(self, objectInfoToColor, parentNode, beforeCount)
+                end
+
+                return result
+            end
+        end
+
+        pwc_logf("MP MODE - hooked for post-spawn coloring with first-group fix")
     end
 end
 
 -- =============================================================================
 -- :: 7. SINGLEPLAYER DIRECT REPLACEMENT (AT SCRIPT LOAD) ::
 -- =============================================================================
--- In SP, replace the function IMMEDIATELY like SP final does
+-- Use Utils.overwrittenFunction for proper superFunc compatibility
 if PlaceableObjectStorage ~= nil then
-    -- Check if we're in SP when the script loads
-    local function isSP()
-        return g_currentMission and g_currentMission:getIsClient() and g_currentMission:getIsServer()
-    end
-
-    -- Store the original function
-    local originalUpdateVisuals = PlaceableObjectStorage.updateObjectStorageVisualAreas
-
-    -- Override with our wrapper that checks SP/MP mode
-    PlaceableObjectStorage.updateObjectStorageVisualAreas = function(self)
-        if isSP() then
-            -- SP MODE: Use PWC_spawnMixed approach
-            pwc_logf("SP updateObjectStorageVisualAreas called for %s", tostring(self))
-            local spec = self.spec_objectStorage
-            local area = spec.storageArea
-            local oldSpawnNode = area.spawnNode
-
-            area.spawnNode = createTransformGroup("storageAreaSpawnNode")
-            link(self.rootNode, area.spawnNode)
-            setVisibility(area.spawnNode, false)
-
-            local pendingVisualAreaUpdate = {}
-            pendingVisualAreaUpdate.oldSpawnNode = oldSpawnNode
-            pendingVisualAreaUpdate.newSpawnNode = area.spawnNode
-            pendingVisualAreaUpdate.objectInfosToSpawn = {}
-
-            pendingVisualAreaUpdate.spawnNextObjectInfo = function()
-                if #pendingVisualAreaUpdate.objectInfosToSpawn > 0 then
-                    local objectInfo = pendingVisualAreaUpdate.objectInfosToSpawn[1]
-                    pwc_logf("SP spawnNextObjectInfo: spawning group with %d visuals",
-                        #(objectInfo.visualSpawnInfos or {}))
-                    PWC_spawnMixed(objectInfo)
-
-                    table.remove(pendingVisualAreaUpdate.objectInfosToSpawn, 1)
-
-                    return true
-                else
-                    delete(pendingVisualAreaUpdate.oldSpawnNode)
-
-                    if entityExists(pendingVisualAreaUpdate.newSpawnNode) then
-                        setVisibility(pendingVisualAreaUpdate.newSpawnNode, true)
-                    end
-
-                    return false
-                end
-            end
-
-            area.spawnAreaIndex, area.spawnAreaData[1], area.spawnAreaData[2], area.spawnAreaData[3], area.spawnAreaData[4], area.spawnAreaData[5], area.spawnAreaData[6] =
-                1, 0, 0, 0, 0, 0, math.huge
-
-            for i = 1, #spec.objectInfos do
-                local objectInfo = spec.objectInfos[i]
-                objectInfo.visualSpawnInfos = {}
-                area.spawnAreaData[6] = math.huge
-
-                local objectToSpawn = objectInfo.objects[1]
-                local ox, oy, oz, width, height, length, maxStackHeight = objectToSpawn:getSpawnInfo()
-                if maxStackHeight > 1.001 then
-                    maxStackHeight = math.huge
-                end
-
-                for j = 1, objectInfo.numObjects do
-                    local areaIndex, spawnX, spawnY, spawnZ, offsetX, offsetY, offsetZ, nextOffsetX, nextOffsetZ, stackIndex =
-                        PlaceableObjectStorage.getNextSpawnAreaAndOffset(area.area, area.spawnAreaIndex,
-                            area.spawnAreaData[1],
-                            area.spawnAreaData[2], area.spawnAreaData[3], area.spawnAreaData[4], area.spawnAreaData[5],
-                            width,
-                            height, length, maxStackHeight, area.spawnAreaData[6], true)
-                    if areaIndex ~= nil then
-                        area.spawnAreaIndex, area.spawnAreaData[1], area.spawnAreaData[2], area.spawnAreaData[3], area.spawnAreaData[4], area.spawnAreaData[5], area.spawnAreaData[6] =
-                            areaIndex, offsetX, offsetY, offsetZ, nextOffsetX, nextOffsetZ, stackIndex
-
-                        local spawnArea = area.area[area.spawnAreaIndex]
-
-                        local cx, cy, cz = localToLocal(spawnArea.startNode, area.spawnNode, spawnX + ox, spawnY + oy,
-                            spawnZ + oz)
-                        local rx, ry, rz = localRotationToLocal(spawnArea.startNode, area.spawnNode, 0, 0, 0)
-
-                        table.insert(objectInfo.visualSpawnInfos, { area.spawnNode, cx, cy, cz, rx, ry, rz })
-                    end
-                end
-
-                if #objectInfo.visualSpawnInfos > 0 then
-                    table.insert(pendingVisualAreaUpdate.objectInfosToSpawn, objectInfo)
-                end
-            end
-
-            if pendingVisualAreaUpdate.spawnNextObjectInfo() then
-                table.insert(spec.pendingVisualAreaUpdates, pendingVisualAreaUpdate)
-                self:raiseActive()
-            end
-        else
-            -- MP MODE: Use the MP visual spawning with hooks
-            return pwc_PlaceableObjectStorage_updateObjectStorageVisualAreas(self, originalUpdateVisuals)
-        end
-    end
+    PlaceableObjectStorage.updateObjectStorageVisualAreas = Utils.overwrittenFunction(
+        PlaceableObjectStorage.updateObjectStorageVisualAreas,
+        pwc_PlaceableObjectStorage_updateObjectStorageVisualAreas
+    )
 
     PersistentWrapColors._patchedRefs.updateObjectStorageVisualAreas = PlaceableObjectStorage
         .updateObjectStorageVisualAreas
-    pwc_logf("PlaceableObjectStorage.updateObjectStorageVisualAreas OVERRIDDEN (will check SP/MP at runtime)")
+    pwc_logf("PlaceableObjectStorage.updateObjectStorageVisualAreas PATCHED with Utils.overwrittenFunction")
 end
 
 -- =============================================================================
