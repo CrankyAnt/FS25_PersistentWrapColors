@@ -1,4 +1,4 @@
---[[ Persistent Wrap Colors v1.1.0.0
+--[[ Persistent Wrap Colors v1.1.2.0
 Mod for Farming Simulator 2025, keeps bale wrap colors persistent in placeable objectstorage.
 server sends a compact snapshot of wrapped groups via onWriteStream; client applies
 colors idempotently during visual spawn. Uses fillTypeIndex as authoritative keys.
