@@ -1,0 +1,25 @@
+version = 1
+
+[[annotations]]
+path = [
+    ".gitattributes",
+    ".gitignore",
+    ".gitmodules",
+    "LICENSE.md",
+    "LICENSES/MIT.txt",
+    "PersistentWrapColors.lua",
+    "REUSE.toml",
+]
+SPDX-FileCopyrightText = "2025-2026 CrankyAnt"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = [
+    "DISTRIBUTION.md",
+    "LICENSES/LicenseRef-CrankyAnt-Official-Assets.txt",
+    "README.md",
+    "icon_PersistentWrapColors.dds",
+    "modDesc.xml",
+]
+SPDX-FileCopyrightText = "2025-2026 CrankyAnt"
+SPDX-License-Identifier = "LicenseRef-CrankyAnt-Official-Assets"

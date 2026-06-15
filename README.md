@@ -23,6 +23,20 @@ Each bale retains its unique wrap color while stored, and shows correctly when t
 2. Place the `.zip` file in your mods folder
 3. Activate in-game via the mod selection menu
 
+## License and Distribution
+
+This repository uses per-file licensing according to the REUSE specification.
+See [REUSE.toml](REUSE.toml) for the authoritative machine-readable license
+assignment.
+
+The functional Lua source code is licensed under the MIT License. The official
+mod name, icon, branding, descriptions, and release packages are covered by
+the separate CrankyAnt Official Assets License. See
+[DISTRIBUTION.md](DISTRIBUTION.md) for a human-readable explanation.
+
+The private `docs` Git submodule is a separate repository and is not covered
+by the licensing declarations in this repository.
+
 ## Changelog
 ### Version 1.1.2.0
 - Fixed: Compatibility with other storage mods

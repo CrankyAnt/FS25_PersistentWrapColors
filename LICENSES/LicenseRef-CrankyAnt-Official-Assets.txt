@@ -1,0 +1,27 @@
+CrankyAnt Official Assets License
+
+Copyright (c) 2025-2026 CrankyAnt. All rights reserved.
+
+Permission is granted to use the covered files as part of the official
+Persistent Wrap Colors mod obtained from its official distribution sources.
+
+Permission is also granted to adapt and distribute covered configuration and
+documentation files as part of a modified version of the MIT-licensed source
+code, provided that the modified version:
+
+- Uses a different mod name and icon.
+- Clearly identifies itself as an unofficial modification.
+- Does not imply endorsement by or affiliation with CrankyAnt.
+- Preserves applicable copyright and license notices.
+
+The official mod icon, official branding, promotional materials, and official
+release packages may not be redistributed, mirrored, scraped, or rehosted
+without explicit written permission from CrankyAnt.
+
+Commercial use of the covered files is not permitted without a separate
+written license agreement.
+
+THE COVERED FILES ARE PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+OR IMPLIED. IN NO EVENT SHALL THE COPYRIGHT HOLDER BE LIABLE FOR ANY CLAIM,
+DAMAGES, OR OTHER LIABILITY ARISING FROM, OUT OF, OR IN CONNECTION WITH THE
+COVERED FILES OR THEIR USE.
