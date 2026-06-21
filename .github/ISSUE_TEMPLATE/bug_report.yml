@@ -1,0 +1,73 @@
+name: Bug report
+description: Report a problem with Persistent Wrap Colors
+title: "[Bug]: "
+labels: [bug]
+body:
+  - type: input
+    id: game-version
+    attributes:
+      label: Game version
+      description: Free text is fine; no exact version format is required.
+      placeholder: "Example: 1.13.0.0, latest Steam version, or version from menu"
+    validations:
+      required: true
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Platform
+      options:
+        - PC
+        - Mac
+    validations:
+      required: true
+  - type: dropdown
+    id: game-mode
+    attributes:
+      label: Game mode
+      options:
+        - Singleplayer
+        - Multiplayer client
+        - Multiplayer server / dedicated server
+    validations:
+      required: true
+  - type: input
+    id: map
+    attributes:
+      label: Map
+      placeholder: "Example: Riverbend Springs"
+    validations:
+      required: true
+  - type: input
+    id: storage
+    attributes:
+      label: Object Storage used
+      description: Name the basegame or modded object storage involved.
+      placeholder: "Example: Basegame bale and pallet storage, or modded storage name"
+    validations:
+      required: true
+  - type: textarea
+    id: bales
+    attributes:
+      label: Bale details
+      description: Include bale type, size, wrap color, and whether the bales were stored before or after adding/updating the mod.
+      placeholder: "Example: 150 cm wrapped grass bales, pink wrap, stored before installing version 1.1.2.0"
+      render: text
+  - type: textarea
+    id: mods
+    attributes:
+      label: Relevant active mods
+      description: List object storage, bale, wrapper, or bale handling mods. Please do not upload mod files.
+      render: text
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened?
+      description: Describe the issue and what you expected to happen. Please do not upload files here.
+      render: text
+    validations:
+      required: true
+  - type: textarea
+    id: log
+    attributes:
+      label: Log excerpt or full log file
+      description: Paste relevant log lines, or drag and drop the complete log file here.
