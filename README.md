@@ -4,7 +4,9 @@ Persistent Wrap Colors keeps wrapped bale colors intact when bales are stored in
 
 ## Download
 
-The official download is available through GIANTS ModHub.
+The official download is available through GIANTS ModHub:
+
+https://www.farming-simulator.com/mod.php?mod_id=334607&title=fs2025
 
 ## What This Mod Does
 
