@@ -34,8 +34,6 @@ mod name, icon, branding, descriptions, and release packages are covered by
 the separate CrankyAnt Official Assets License. See
 [DISTRIBUTION.md](DISTRIBUTION.md) for a human-readable explanation.
 
-The private `docs` Git submodule is a separate repository and is not covered
-by the licensing declarations in this repository.
 
 ## Changelog
 ### Version 1.1.2.0

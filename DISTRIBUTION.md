@@ -10,8 +10,6 @@ The functional Lua source code and supporting technical repository files are
 licensed under the MIT License. You may fork, modify, and distribute those
 files under the terms of that license.
 
-The private `docs` Git submodule is a separate repository and is not covered
-by the licensing declarations in this repository.
 
 ## Branding and Official Releases
 
