@@ -1,71 +1,67 @@
-﻿<?xml version="1.0" encoding="utf-8" standalone="no" ?>
-<modDesc descVersion="101">
-  <author>CrankyAnt</author>	
-  <version>1.1.2.0</version>    
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<modDesc descVersion="109">
+  <author>CrankyAnt</author>
+  <version>1.1.2.0</version>
   <title>
-      <en>Persistent Wrap Colors</en>
-      <de>Dauerhafte Wickelfarben</de>
-      <fr>Couleurs D'Enrubannage Persistantes</fr>
-      <nl>Blijvende Wikkelkleuren</nl>
+    <en>Persistent Wrap Colors</en>
+    <de>Dauerhafte Wickelfarben</de>
+    <fr>Couleurs D'Enrubannage Persistantes</fr>
+    <nl>Blijvende Wikkelkleuren</nl>
   </title>
 
   <description>
-        <en><![CDATA[Persistent Wrap Colors
+    <en>
+<![CDATA[
+Persistent Wrap Colors
 
-Ever wondered why all your wrapped bales in Object Storage turn into the same plain equal color? 
-This mod makes sure every bale keeps its original wrap color - exactly as you made it.
-
-Just like in the field:
-- black bales stay black
-- pink bales stay pink
-- yellow, blue, red, green… all remain visible
-
+Ever wondered why all your wrapped bales in Object Storage turn into the same plain equal color?
+This mod makes sure every bale keeps its original wrap color, exactly as you made it.
+Just like in the field: black bales stay black, pink bales stay pink, and yellow, blue, red, green, and other wrap colors remain visible.
 No more confusion about which silage is which. Each bale retains its unique wrap color while stored, and shows correctly when taken back out again.
+Works globally with all Object Storages using GIANTS Object Storage.
+Also supports modded storages that use the same specialization.
+Pure script implementation: lightweight, with hardly any performance impact, even with very large numbers of bales.
 
-Works globally with all Object Storages using GIANTS Object Storage.  
-Also supports modded storages that use the same specialization.  
-Pure script implementation - lightweight, hardly any performance impact (even with very large numbers of bales)  
+Multiplayer supported.
 PC only, because it is a script mod.
 
 Report issues on GitHub: https://github.com/CrankyAnt/FS25_PersistentWrapColors/issues
 
 Changelog
-Version 1.1.2,0
-- Fixed: Compatibility with other storage mods
+Version 1.1.2.0
+- Fixed compatibility with other storage mods
 
 Version 1.1.1.0
-- Changed loading logs and integritycheck
+- Changed loading logs and integrity check
 
 Version 1.1.0.0
-- Add multiplayer support
-- Conflict detection with other mods
+- Added multiplayer support
+- Added conflict detection with other mods
 - Improved error handling and integrity checks
 
-Version 1.0.0.0  
-- Initial release for singleplayer 
-]]></en>		
+Version 1.0.0.0
+- Initial release for singleplayer
+]]></en>
 
-        <de><![CDATA[Dauerhafte Wickelfarben
+    <de>
+<![CDATA[
+Dauerhafte Wickelfarben
 
-Haben Sie sich schon gefragt, warum alle Ihre Wickelballen im Objektspeicher plötzlich als einfarbig gleichfarbige Stapel erscheinen? 
-Mit diesem Mod behält jeder Ballen seine ursprüngliche Wickelfarbe - genau so, wie Sie ihn erstellt haben.
-
-Genau wie auf dem Feld:
-- schwarze Ballen bleiben schwarz
-- pinke Ballen bleiben pink
-- gelb, blau, rot, grün … alles bleibt sichtbar
-
+Haben Sie sich schon gefragt, warum alle Ihre Wickelballen im Objektspeicher plötzlich als einfarbig gleichfarbige Stapel erscheinen?
+Mit diesem Mod behält jeder Ballen seine ursprüngliche Wickelfarbe, genau so, wie Sie ihn erstellt haben.
+Genau wie auf dem Feld: schwarze Ballen bleiben schwarz, pinke Ballen bleiben pink, und gelbe, blaue, rote, grüne und andere Wickelfarben bleiben sichtbar.
 Keine Verwirrung mehr, welche Silage welche ist. Jeder Ballen behält seine einzigartige Wickelfarbe im Speicher und zeigt sie auch korrekt wieder an, wenn er herausgenommen wird.
+Funktioniert global mit allen Objektspeichern, die GIANTS Object Storage verwenden.
+Unterstützt auch gemoddete Speicher, die die gleiche Spezialisierung verwenden.
+Reine Script-Implementierung: leichtgewichtig, kaum Leistungseinbußen, auch bei sehr großen Ballenzahlen.
 
-Funktioniert global mit allen Objektspeichern, die GIANTS Object Storage verwenden.  
-Unterstützt auch gemoddete Speicher, die die gleiche Spezialisierung verwenden.  
-Reine Script-Implementierung - leichtgewichtig, kaum Leistungseinbußen (auch bei sehr großen Ballenzahlen)
+Mehrspielermodus wird unterstützt.
 Nur PC, da es sich um einen Script-Mod handelt.
 
 Fehlerberichte auf GitHub: https://github.com/CrankyAnt/FS25_PersistentWrapColors/issues
 
 Changelog
-Version 1.1.2.0  
+Version 1.1.2.0
 - Behoben: Kompatibilität mit anderen Lagermods
 
 Version 1.1.1.0
@@ -80,84 +76,77 @@ Version 1.0.0.0
 - Erstrelease für Einzelspieler
 ]]></de>
 
+    <fr>
+<![CDATA[
+Couleurs D'Enrubannage Persistantes
 
-        <fr><![CDATA[Couleurs d'Enrubannage Persistantes
-
-Vous êtes-vous déjà demandé pourquoi toutes vos balles enrubannées stockées apparaissent soudain comme une pile de couleur uniforme? 
-Ce mod garantit que chaque balle conserve sa couleur d'enrubannage d'origine - exactement comme vous l'avez produite.
-
-Comme sur le champ :
-  - les balles noires restent noires
-  - les balles roses restent roses
-  - les jaunes, bleues, rouges, vertes… restent toutes visibles
-
+Vous êtes-vous déjà demandé pourquoi toutes vos balles enrubannées stockées apparaissent soudain comme une pile de couleur uniforme?
+Ce mod garantit que chaque balle conserve sa couleur d'enrubannage d'origine, exactement comme vous l'avez produite.
+Comme sur le champ : les balles noires restent noires, les balles roses restent roses, et les jaunes, bleues, rouges, vertes et autres couleurs d'enrubannage restent visibles.
 Fini la confusion entre les différents ensilages. Chaque balle conserve sa couleur d'enrubannage unique dans le stockage et l'affiche correctement lorsqu'elle est reprise.
+Fonctionne globalement avec tous les stockages d'objets utilisant GIANTS Object Storage.
+Prend aussi en charge les stockages moddés utilisant la même spécialisation.
+Implémentation purement script : léger, avec très peu d'impact sur les performances, même avec un très grand nombre de balles.
 
-Fonctionne globalement avec tous les stockages d'objets utilisant GIANTS Object Storage.  
-Prend aussi en charge les stockages moddés utilisant la même spécialisation.  
-Implémentation purement script - léger, à peine d'impact sur la performance (même avec un très grand nombre de balles).  
+Multijoueur pris en charge.
 PC uniquement, car il s'agit d'un mod script.
 
 Signalez les problèmes sur GitHub : https://github.com/CrankyAnt/FS25_PersistentWrapColors/issues
 
 Changelog
-Version 1.1.2.0  
+Version 1.1.2.0
 - Corrigé : Compatibilité avec d'autres mods de stockage
 
 Version 1.1.1.0
-- Modification du processus de chargement des journaux et de la vérification d’intégrité
+- Modification du processus de chargement des journaux et de la vérification d'intégrité
 
 Version 1.1.0.0
 - Ajout du support multijoueur
-- Détection des conflits avec d’autres mods
-- Amélioration de la gestion des erreurs et des vérifications d’intégrité
+- Détection des conflits avec d'autres mods
+- Amélioration de la gestion des erreurs et des vérifications d'intégrité
 
 Version 1.0.0.0
 - Première version pour le mode solo
 ]]></fr>
 
-        <nl><![CDATA[Blijvende Wikkelkleuren
+    <nl>
+<![CDATA[
+Blijvende Wikkelkleuren
 
-Heb je je ooit afgevraagd waarom al je gewikkelde balen in Object Storage ineens veranderen in één saaie gelijk gekleurde stapel? 
-Met deze mod behoudt elke baal zijn eigen oorspronkelijke wikkelkleur - precies zoals je hem hebt gemaakt.
-
-Net als op het veld:
-- zwarte balen blijven zwart
-- roze balen blijven roze
-- geel, blauw, rood, groen… alles blijft zichtbaar
-
+Heb je je ooit afgevraagd waarom al je gewikkelde balen in Object Storage ineens veranderen in één saaie gelijk gekleurde stapel?
+Met deze mod behoudt elke baal zijn eigen oorspronkelijke wikkelkleur, precies zoals je hem hebt gemaakt.
+Net als op het veld: zwarte balen blijven zwart, roze balen blijven roze, en geel, blauw, rood, groen en andere wikkelkleuren blijven zichtbaar.
 Geen verwarring meer over welke silage welke is. Elke baal behoudt zijn unieke wikkelkleur in de opslag en wordt ook correct weergegeven wanneer je hem er weer uithaalt.
+Werkt globaal met alle opslagplaatsen die gebruik maken van GIANTS Object Storage.
+Ondersteunt ook gemodde opslagplaatsen die dezelfde specialisatie gebruiken.
+Pure script-implementatie: lichtgewicht, met nauwelijks impact op performance, ook met zeer grote aantallen balen.
 
-Werkt globaal met alle modellen die gebruik maken van GIANTS Object Storage.  
-Ondersteunt ook gemodde opslagplaatsen die dezelfde specialisatie gebruiken.  
-Pure script-implementatie - lichtgewicht, nauwelijks impact op performance (ook met zeer grote aantallen balen)
+Multiplayer ondersteund.
 Alleen voor PC, omdat het een scriptmod is.
 
 Meld problemen op GitHub: https://github.com/CrankyAnt/FS25_PersistentWrapColors/issues
 
 Changelog
-Changelog
-Versie 1.1.2.0  
-- Opgelost: Compatibiliteit met andere opslagmods
+Versie 1.1.2.0
+- Opgelost: compatibiliteit met andere opslagmods
 
-Version 1.1.1.0
+Versie 1.1.1.0
 - Wijziging in het laden van logbestanden en integriteitscontrole
 
-Version 1.1.0.0
+Versie 1.1.0.0
 - Multiplayer-ondersteuning toegevoegd
 - Conflictdetectie met andere mods
 - Verbeterde foutafhandeling en integriteitscontroles
 
-Version 1.0.0.0
+Versie 1.0.0.0
 - Eerste release voor singleplayer
 ]]></nl>
   </description>
 
-	<iconFilename>icon_PersistentWrapColors.dds</iconFilename>	
-  <multiplayer supported="true"/>	
-	
-  <extraSourceFiles>	
-    <sourceFile filename="PersistentWrapColors.lua" /> 
-	</extraSourceFiles>
-  
+  <iconFilename>icon_PersistentWrapColors.dds</iconFilename>
+  <multiplayer supported="true" />
+
+  <extraSourceFiles>
+    <sourceFile filename="PersistentWrapColors.lua" />
+  </extraSourceFiles>
 </modDesc>
