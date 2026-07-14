@@ -6,7 +6,7 @@ Persistent Wrap Colors keeps wrapped bale colors intact when bales are stored in
 
 The official download is available through GIANTS ModHub:
 
-https://www.farming-simulator.com/mod.php?mod_id=334607&title=fs2025
+<https://www.farming-simulator.com/mod.php?mod_id=334607&title=fs2025>
 
 ## What This Mod Does
 
@@ -14,6 +14,7 @@ Ever wondered why all your wrapped bales in Object Storage turn into the same pl
 This mod makes sure every bale keeps its original wrap color, exactly as you made it.
 
 Just like in the field:
+
 - black bales stay black
 - pink bales stay pink
 - yellow, blue, red, green, and other wrap colors remain visible
@@ -38,7 +39,7 @@ even with very large numbers of bales.
 
 Found a bug or compatibility issue? Please open a GitHub issue:
 
-https://github.com/CrankyAnt/FS25_PersistentWrapColors/issues/new/choose
+<https://github.com/CrankyAnt/FS25_PersistentWrapColors/issues/new/choose>
 
 Please open an issue and include:
 
