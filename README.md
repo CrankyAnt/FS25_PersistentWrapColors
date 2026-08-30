@@ -65,22 +65,4 @@ mod name, icon, branding, descriptions, and release packages are covered by
 the separate CrankyAnt Official Assets License. See
 [DISTRIBUTION.md](DISTRIBUTION.md) for a human-readable explanation.
 
-## Changelog
-
-### Version 1.1.2.0
-
-- Fixed compatibility with other storage mods.
-
-### Version 1.1.1.0
-
-- Changed loading logs and integrity check.
-
-### Version 1.1.0.0
-
-- Added multiplayer support.
-- Added conflict detection with other mods.
-- Improved error handling and integrity checks.
-
-### Version 1.0.0.0
-
-- Initial release for singleplayer.
+## [Changelog](CHANGELOG.md)
