@@ -70,4 +70,4 @@ body:
     id: log
     attributes:
       label: Log excerpt or full log file
-      description: Paste relevant log lines, or drag and drop the complete log file here.
+      description: Paste relevant log lines, or drag and drop the complete log file here. Before posting, remove lines containing your Windows username or other personal paths.
