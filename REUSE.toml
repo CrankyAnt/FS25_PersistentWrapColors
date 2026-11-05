@@ -8,6 +8,7 @@ path = [
     ".gitmodules",
     "AGENTS.md",
     "CLAUDE.md",
+    "GLOSSARY.md",
     "LICENSE.md",
     "LICENSES/MIT.txt",
     "PersistentWrapColors.lua",
@@ -19,6 +20,7 @@ SPDX-License-Identifier = "MIT"
 
 [[annotations]]
 path = [
+    "CHANGELOG.md",
     "DISTRIBUTION.md",
     "LICENSES/LicenseRef-CrankyAnt-Official-Assets.txt",
     "README.md",
