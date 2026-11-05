@@ -1,6 +1,6 @@
 # FS25_PersistentWrapColors
 
-Persistent Wrap Colors is a Farming Simulator 25 script mod that keeps the wrap colours of wrapped bales visible while they are stored in Object Storage.
+Persistent Wrap Colors is a Farming Simulator 25 script mod that keeps the wrapping colors of wrapped bales visible while they are stored in Object Storage.
 
 ## Agent skills
 
