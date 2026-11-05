@@ -1,7 +1,7 @@
 name: Bug report
 description: Report a problem with Persistent Wrap Colors
 title: "[Bug]: "
-labels: [bug]
+labels: [type:bug]
 body:
   - type: input
     id: game-version
