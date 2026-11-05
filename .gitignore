@@ -10,3 +10,4 @@ log.txt
 shader_cache/
 *.zip
 .claude/settings.local.json
+.docs/
